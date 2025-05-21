@@ -1,0 +1,229 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/react/scss/breakpoint' as *;
+@use '@carbon/react/scss/theme' as *;
+@use '@carbon/react/scss/colors' as *;
+
+@use './mixins.scss' as *;
+
+.scheduling-grid {
+  padding: 0;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  height: auto;
+  background: var(--gradient-background);
+}
+
+.scheduling-page__banner {
+  padding: $spacing-07;
+  margin: 0;
+  max-height: 200px;
+  height: 100vh;
+  @include scheduling-page-background;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(66, 153, 225, 0.1) 0%, rgba(44, 82, 130, 0.05) 100%);
+    z-index: 1;
+  }
+  
+  h1 {
+    position: relative;
+    z-index: 2;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: $spacing-05;
+    color: var(--text-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cds--breadcrumb {
+    position: relative;
+    z-index: 2;
+    
+    a {
+      color: var(--text-secondary);
+      transition: var(--transition-normal);
+      
+      &:hover {
+        color: var(--primary-color);
+      }
+    }
+  }
+}
+
+.info-page__r2 {
+  margin: $spacing-07;
+  padding: $spacing-07;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  
+  .cds--tabs {
+    margin-bottom: $spacing-07;
+    
+    .cds--tabs__nav {
+      border-bottom: 2px solid var(--border-color);
+    }
+    
+    .cds--tabs__nav-item {
+      transition: var(--transition-normal);
+      
+      &:hover {
+        background-color: rgba(66, 153, 225, 0.05);
+      }
+      
+      &.cds--tabs__nav-item--selected {
+        .cds--tabs__nav-link {
+          color: var(--primary-color);
+          border-bottom: 2px solid var(--primary-color);
+        }
+      }
+    }
+  }
+}
+
+.my-schedule__table {
+  background: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  
+  .cds--data-table-header {
+    padding: $spacing-05;
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    
+    .cds--table-header-label {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+  }
+  
+  .cds--table-row {
+    transition: var(--transition-normal);
+    
+    &:hover {
+      background-color: rgba(66, 153, 225, 0.05);
+    }
+  }
+  
+  .cds--table-cell {
+    color: var(--text-secondary);
+  }
+  
+  .cds--table-toolbar {
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    padding: $spacing-05;
+    
+    .cds--toolbar-content {
+      .cds--search {
+        max-width: 300px;
+        
+        .cds--search-input {
+          background: white;
+          border: 1px solid var(--border-color);
+          border-radius: var(--radius-md);
+          
+          &:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+          }
+        }
+      }
+    }
+  }
+}
+
+.status-cell {
+  padding: $spacing-02 $spacing-03;
+  border-radius: var(--radius-xl);
+  font-weight: 500;
+  text-align: center;
+  
+  &.status-pending {
+    background-color: rgba(246, 173, 85, 0.1);
+    color: var(--warning-color);
+  }
+  
+  &.status-booked {
+    background-color: rgba(72, 187, 120, 0.1);
+    color: var(--success-color);
+  }
+  
+  &.status-finished {
+    background-color: rgba(159, 122, 234, 0.1);
+    color: var(--info-color);
+  }
+}
+
+.cds--modal {
+  .cds--modal-container {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .cds--modal-header {
+    padding: $spacing-05;
+    border-bottom: 1px solid var(--border-color);
+    
+    .cds--modal-header__heading {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+  }
+  
+  .cds--modal-content {
+    padding: $spacing-05;
+    
+    p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+  }
+  
+  .cds--modal-footer {
+    padding: $spacing-05;
+    border-top: 1px solid var(--border-color);
+    
+    .cds--btn {
+      border-radius: var(--radius-md);
+      transition: var(--transition-normal);
+      
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+    }
+  }
+}
+
+@media (max-width: 672px) {
+  .scheduling-page__banner {
+    padding: $spacing-05;
+  }
+  
+  .info-page__r2 {
+    margin: $spacing-05;
+    padding: $spacing-05;
+  }
+  
+  .my-schedule__table {
+    .cds--table-toolbar {
+      .cds--toolbar-content {
+        .cds--search {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}

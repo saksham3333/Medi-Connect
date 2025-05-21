@@ -1,0 +1,86 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/colors' as *;
+@use '@carbon/react/scss/theme' as *;
+
+.footer {
+  padding: $spacing-05 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: var(--gradient-primary);
+  border-top: 1px solid var(--border-light);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white !important;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  padding: 0 $spacing-05;
+  margin: 0 auto;
+  color: white !important;
+}
+
+.footer-content nav {
+  display: flex;
+  gap: $spacing-05;
+  flex-wrap: wrap;
+}
+
+.footer-content nav a {
+  color: white !important;
+  text-decoration: none;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  }
+  
+  &:hover {
+    color: white !important;
+    transform: translateY(-1px);
+    opacity: 0.8;
+    
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.footer-content p {
+  color: white !important;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 1057px) {
+  .footer-content {
+    flex-direction: column;
+    gap: $spacing-05;
+    text-align: center;
+  }
+  
+  .footer-content nav {
+    justify-content: center;
+  }
+  
+  .footer-content p {
+    display: none;
+  }
+}

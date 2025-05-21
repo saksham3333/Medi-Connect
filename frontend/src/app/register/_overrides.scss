@@ -1,0 +1,25 @@
+@use '@carbon/react/scss/spacing' as *;
+
+.cds--text-input {
+  height: 48px;
+}
+
+.cds--date-picker {
+  position: relative;
+}
+
+.cds--date-picker-input__wrapper {
+  position: relative;
+  justify-content: center;
+}
+
+.cds--modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-04;
+}
+
+.cds--modal-header .cds--modal-close {
+  order: 2;
+}

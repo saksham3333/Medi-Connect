@@ -1,0 +1,7 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/theme' as *;
+
+@mixin scheduling-page-background() {
+  background-color: $layer-01;
+  position: relative;
+}

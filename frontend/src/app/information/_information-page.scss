@@ -1,0 +1,59 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/react/scss/breakpoint' as *;
+@use '@carbon/react/scss/theme' as *;
+
+@use './mixins.scss' as *;
+
+.info-grid {
+  padding: 0;
+  width: 100%;
+  height: auto;
+}
+
+.info-page__banner {
+  padding: $spacing-07;
+  margin: 0;
+  max-height: 200px;
+  height: 100vh;
+  @include info-page-background;
+}
+
+.info-page__r2 {
+  max-width: 1440px;
+  height: auto;
+  margin: 0 $spacing-07;
+  padding: $spacing-07 0;
+}
+
+.info-page__content_r {
+  display: grid;
+  justify-content: center;
+  align-items: end;
+  padding-left: $spacing-07;
+  margin: 0;
+}
+
+.info-page__illo {
+  width: 100%;
+  max-width: 604px;
+}
+
+@media (max-width: 672px) {
+  .info-page__illo {
+    width: 528px;
+    width: 100%;
+    height: auto;
+    float: inline-start;
+  }
+}
+
+@media (max-width: 320px) {
+  .info-page__illo {
+    display: none;
+  }
+
+  .info-page__banner {
+    padding-bottom: $spacing-05 * 4;
+  }
+}

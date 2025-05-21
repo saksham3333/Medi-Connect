@@ -1,0 +1,28 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/react/scss/breakpoint' as *;
+@use '@carbon/react/scss/theme' as *;
+@use '@carbon/react/scss/colors' as *;
+
+html {
+  background-color: $layer-01;
+}
+
+.description {
+  margin-bottom: $spacing-08;
+}
+
+.modal__text-input,
+.modal__date-picker,
+.modal__radio-group,
+.modal__drop-down {
+  margin-bottom: $spacing-06;
+}
+
+.modal__text-input .cds--text-input,
+.modal__date-picker .cds--date-picker__input,
+.modal__drop-down .cds--list-box__field,
+.modal__drop-down .cds--list-box__menu,
+.modal__text-area .cds--text-area {
+  background-color: $layer-02;
+}

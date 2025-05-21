@@ -1,0 +1,1288 @@
+@use '@carbon/react';
+@use '@carbon/react/scss/breakpoint' as *;
+@use '@carbon/react/scss/colors' as *;
+@use '@carbon/react/scss/theme' as *;
+@use '@carbon/react/scss/themes' as *;
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/react/scss/motion' as *;
+@use '@carbon/react/scss/layout' as *;
+@use '@carbon/react/scss/grid' as *;
+@use '@carbon/react/scss/utilities' as *;
+@use '@carbon/react/scss/components' as *;
+@use '@carbon/react/scss/layer' as *;
+@use './_fonts';
+@use '@/components/BasicHeader/basic-header';
+@use '@/components/BasicFooter/basic-footer';
+@use '@/components/Info/info';
+@use '@/components/Table/table';
+@use '@/components/EditModal/edit-modal';
+@use '@/app/landing/_landing-page';
+@use '@/app/login/_login-page';
+@use '@/app/register/_register-page';
+@use '@/app/information/_information-page';
+@use '@/app/patient-appointment/_patient-appointment-page';
+@use '@/app/patient-scheduling/_patient-scheduling-page';
+@use '@/app/physician-appointment/_physician-appointment-page';
+@use '@/app/physician-scheduling/_physician-scheduling-page';
+
+:root {
+  // Main colors
+  --primary-color: #2563eb; // Vibrant blue
+  --primary-light: #60a5fa;
+  --primary-dark: #1d4ed8;
+  --secondary-color: #0ea5e9; // Sky blue
+  --accent-color: #38bdf8;
+  --neutral-color: #ffffff;
+
+  // Background colors
+  --background-light: #f0f9ff; // Light blue tint
+  --background-dark: #e0f2fe;
+  --card-bg: #ffffff;
+  --hover-bg: #dbeafe;
+
+  // Text colors
+  --text-primary: #1e40af; // Deep blue
+  --text-secondary: #1e3a8a;
+  --text-muted: #3b82f6;
+
+  // Border colors
+  --border-light: #e2e8f0;
+  --border-dark: #cbd5e1;
+
+  // Shadow colors
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  // Status colors
+  --success-color: #10b981; // Green
+  --warning-color: #f59e0b; // Amber
+  --error-color: #ef4444; // Red
+  --info-color: #3b82f6; // Blue
+
+  // Gradients
+  --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+  --gradient-hover: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+
+  // Transitions
+  --transition-normal: all 0.3s ease;
+  --transition-fast: all 0.15s ease;
+
+  // Border radius
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--background-light);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+.layout {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+  background: var(--background-light);
+  min-height: 100vh;
+}
+
+// Override Carbon Design System components for white theme
+.cds--data-table {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  
+  th {
+    background-color: var(--gradient-primary);
+    color: var(--text-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  td {
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-primary);
+  }
+  
+  tr:hover {
+    background-color: var(--hover-bg);
+  }
+}
+
+.cds--text-input,
+.cds--text-area,
+.cds--select-input,
+.cds--date-picker__input {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-light);
+  color: var(--text-primary) !important;
+  transition: var(--transition-normal);
+  
+  &::placeholder {
+    color: var(--text-muted) !important;
+  }
+  
+  &:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-light);
+    color: var(--text-primary) !important;
+  }
+  
+  &:hover {
+    border-color: var(--primary-light);
+  }
+}
+
+// Add specific styles for password inputs
+.cds--password-input {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-light);
+  color: var(--text-primary) !important;
+  
+  input {
+    color: var(--text-primary) !important;
+  }
+  
+  &::placeholder {
+    color: var(--text-muted) !important;
+  }
+}
+
+// Add styles for select dropdowns
+.cds--select {
+  background-color: var(--card-bg) !important;
+  
+  .cds--select-input {
+    color: var(--text-primary) !important;
+  }
+  
+  .cds--select__arrow {
+    fill: var(--text-primary) !important;
+  }
+}
+
+.cds--btn {
+  &--primary {
+    background: var(--gradient-primary);
+    color: var(--text-light);
+    border: none;
+    transition: var(--transition-normal);
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+      background: var(--gradient-hover);
+    }
+  }
+  
+  &--secondary {
+    background: var(--card-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    transition: var(--transition-normal);
+    
+    &:hover {
+      background-color: var(--hover-bg);
+      border-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.cds--modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  .cds--modal-container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-lg);
+  }
+  
+  .cds--modal-header {
+    border-bottom: 1px solid var(--border-light);
+    background: var(--gradient-primary);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    
+    .cds--modal-header__heading {
+      color: var(--text-light);
+    }
+  }
+  
+  .cds--modal-content {
+    color: var(--text-primary);
+  }
+}
+
+.cds--tabs {
+  .cds--tabs__nav {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  .cds--tabs__nav-item {
+    color: var(--text-primary);
+    transition: var(--transition-normal);
+    
+    &:hover {
+      color: var(--primary-color);
+      background-color: var(--hover-bg);
+    }
+    
+    &--selected {
+      color: var(--text-light);
+      border-bottom: 2px solid var(--primary-color);
+      background-color: var(--gradient-primary);
+    }
+  }
+}
+
+.landing-page {
+  min-height: 100vh;
+  padding: 2rem;
+  background: var(--background-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+}
+
+.hero-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  
+  .hero-content {
+    text-align: left;
+  }
+  
+  .hero-image-container {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    
+    &::before {
+      display: none; // Remove the blue border box
+    }
+  }
+}
+
+.hero-image {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.feature-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-primary);
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+  }
+}
+
+.cta-section {
+  text-align: center;
+  margin: 3rem auto;
+  max-width: 800px;
+  width: 100%;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1;
+  
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+// Medical-specific styling
+.medical-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.2));
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center;
+  margin: 2rem 0;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+  }
+}
+
+// Enhanced Welcome Text Styles
+.welcome-text {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  max-width: 100%;
+  line-height: 1.2;
+  white-space: nowrap;
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+  }
+}
+
+// Enhanced Landing Page Styles
+.landing-page {
+  min-height: 100vh;
+  padding: 2rem;
+  background: var(--background-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+}
+
+.hero-section {
+  text-align: center;
+  margin: 3rem auto;
+  max-width: 1000px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.feature-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-primary);
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+  }
+}
+
+.cta-section {
+  text-align: center;
+  margin: 3rem auto;
+  max-width: 800px;
+  width: 100%;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1;
+  
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+// Medical-specific styling
+.medical-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.2));
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center;
+  margin: 2rem 0;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .welcome-text {
+    font-size: 1.8rem;
+    white-space: normal;
+    padding: 0 0.5rem;
+  }
+  
+  .hero-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+    
+    .hero-content {
+      text-align: center;
+    }
+    
+    .hero-image {
+      height: 300px;
+    }
+  }
+}
+
+// Table styles
+.cds--data-table {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  
+  th {
+    background: var(--gradient-primary);
+    color: var(--text-light);
+    font-weight: 600;
+  }
+  
+  td {
+    color: var(--text-primary) !important;
+    font-weight: 500;
+  }
+  
+  tr:hover {
+    background: var(--hover-bg);
+  }
+  
+  // Status cell styles
+  .status-cell {
+    color: var(--text-primary) !important;
+    font-weight: 500;
+  }
+  
+  // Ensure all text in table cells is dark
+  .cds--table-cell {
+    color: var(--text-primary) !important;
+  }
+}
+
+// Form label styles
+.cds--label {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+// Button text styles
+.cds--btn {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  
+  &--primary {
+    background: var(--gradient-primary);
+    color: var(--text-light);
+  }
+  
+  &--secondary {
+    background: var(--gradient-secondary);
+    color: var(--primary-color);
+  }
+}
+
+// Card text styles
+.feature-card {
+  h3 {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+// Modal text styles
+.cds--modal {
+  .cds--modal-header__heading {
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+  
+  .cds--modal-content {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+}
+
+// Tab text styles
+.cds--tabs__nav-item {
+  color: var(--text-primary);
+  font-weight: 500;
+  
+  &--selected {
+    color: var(--text-light);
+    font-weight: 600;
+  }
+}
+
+// Enhanced background styles
+.layout {
+  background: var(--background-gradient);
+  min-height: 100vh;
+}
+
+// Card styles
+.feature-card {
+  background: var(--card-gradient);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  border-radius: 16px;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background: var(--card-bg-hover);
+  }
+}
+
+// Modal styles
+.cds--modal {
+  .cds--modal-container {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .cds--modal-header {
+    background: var(--gradient-primary);
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 16px 16px 0 0;
+    
+    .cds--modal-header__heading {
+      color: var(--text-light);
+    }
+  }
+}
+
+// Tab styles
+.cds--tabs {
+  .cds--tabs__nav {
+    background: var(--card-gradient);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+    border-radius: 12px;
+    padding: 4px;
+  }
+  
+  .cds--tabs__nav-item {
+    border-radius: 8px;
+    margin: 0 4px;
+    
+    &--selected {
+      background: var(--gradient-primary);
+      color: var(--text-light);
+    }
+    
+    &:hover {
+      background: var(--hover-bg);
+    }
+  }
+}
+
+// Form styles
+.cds--form-item {
+  .cds--text-input,
+  .cds--select-input,
+  .cds--date-picker__input {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    border-radius: 8px;
+    
+    &:focus {
+      background: var(--card-bg-hover);
+      border-color: var(--primary-color);
+      box-shadow: var(--shadow-md);
+    }
+  }
+}
+
+// Medical Image Styles
+.medical-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease;
+  margin: 1rem 0;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.feature-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.2));
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem auto;
+  max-width: 1200px;
+  padding: 0 1rem;
+}
+
+.image-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  height: 300px;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(37, 99, 235, 0.9), transparent);
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+  }
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    
+    img {
+      transform: scale(1.05);
+    }
+    
+    .image-overlay {
+      transform: translateY(0);
+    }
+  }
+}
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  
+  .feature-image {
+    margin-bottom: 1.5rem;
+  }
+}
+
+// Footer styles
+.cds--footer {
+  background: var(--gradient-primary);
+  color: var(--text-light) !important;
+  padding: 2rem 0;
+  margin-top: 4rem;
+  
+  a {
+    color: var(--text-light) !important;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  
+  p {
+    color: var(--text-light) !important;
+    margin: 0;
+  }
+  
+  .cds--footer__content {
+    color: var(--text-light) !important;
+  }
+  
+  .cds--footer__link {
+    color: var(--text-light) !important;
+  }
+}
+
+// Add specific styles for search inputs
+.cds--search {
+  .cds--search-input {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+    
+    &::placeholder {
+      color: var(--text-muted) !important;
+    }
+    
+    &:focus {
+      color: var(--text-primary) !important;
+    }
+  }
+  
+  .cds--search-close {
+    fill: var(--text-primary) !important;
+  }
+  
+  .cds--search-magnifier {
+    fill: var(--text-primary) !important;
+  }
+}
+
+// Table pagination styles
+.cds--pagination {
+  .cds--select {
+    background-color: var(--card-bg) !important;
+    
+    .cds--select-input {
+      color: var(--text-primary) !important;
+    }
+    
+    .cds--select__arrow {
+      fill: var(--text-primary) !important;
+    }
+  }
+  
+  .cds--pagination__text {
+    color: var(--text-primary) !important;
+  }
+  
+  .cds--pagination__button {
+    color: var(--text-primary) !important;
+    
+    &:disabled {
+      color: var(--text-muted) !important;
+    }
+  }
+  
+  .cds--select__item {
+    color: var(--text-primary) !important;
+    
+    &:hover {
+      background-color: var(--hover-bg) !important;
+    }
+  }
+}
+
+// Scheduling step styles
+.scheduling-step,
+.step-container,
+.step-content {
+  h2, h3, h4, p, span, div {
+    color: var(--text-primary) !important;
+  }
+  
+  .step-title,
+  .step-heading,
+  .step-description,
+  .break-time-text,
+  .cds--label,
+  .cds--form__helper-text {
+    color: var(--text-primary) !important;
+  }
+}
+
+// Override any Carbon Design System styles
+.cds--form-item,
+.cds--fieldset,
+.cds--form {
+  .cds--label,
+  .cds--form__helper-text,
+  .cds--text-input,
+  .cds--select-input,
+  .cds--date-picker__input,
+  .cds--time-picker__input {
+    color: var(--text-primary) !important;
+  }
+}
+
+// Step 2 specific styles
+.step-2,
+[data-step="2"],
+.step-container[data-step="2"],
+.scheduling-step[data-step="2"] {
+  .step-title,
+  .step-heading,
+  h2,
+  h3,
+  h4,
+  p,
+  span,
+  div,
+  .cds--label,
+  .cds--form__helper-text,
+  .break-time-text,
+  .cds--form-item,
+  .cds--fieldset,
+  .cds--form {
+    color: var(--text-primary) !important;
+  }
+}
+
+// Override any Carbon Design System styles for step 2
+.cds--form-item[data-step="2"],
+.cds--fieldset[data-step="2"],
+.cds--form[data-step="2"] {
+  .cds--label,
+  .cds--form__helper-text,
+  .cds--text-input,
+  .cds--select-input,
+  .cds--date-picker__input,
+  .cds--time-picker__input {
+    color: var(--text-primary) !important;
+  }
+}
+
+// Direct element targeting
+.step-title,
+.step-heading,
+.break-time-text,
+.cds--label,
+.cds--form__helper-text {
+  color: var(--text-primary) !important;
+}
+
+// Step 2 heading specific styles
+.step-2 h2,
+[data-step="2"] h2,
+.step-container[data-step="2"] h2,
+.scheduling-step[data-step="2"] h2,
+.step-title,
+.step-heading,
+h2.step-title,
+h2.step-heading,
+.cds--form-item h2,
+.cds--fieldset h2,
+.cds--form h2,
+.step-container h2,
+.scheduling-step h2 {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}
+
+// Override any Carbon Design System styles for step 2
+.cds--form-item[data-step="2"] h2,
+.cds--fieldset[data-step="2"] h2,
+.cds--form[data-step="2"] h2 {
+  color: var(--text-primary) !important;
+}
+
+// Direct element targeting for all headings
+h2, h3, h4 {
+  color: var(--text-primary) !important;
+}
+
+// Break time text specific styles
+.break-time-text,
+.break-time-label,
+.cds--label[for*="break"],
+.cds--form-item label[for*="break"],
+.cds--form__helper-text,
+.cds--form-item .cds--label,
+.cds--fieldset .cds--label,
+.cds--form .cds--label,
+.step-2 .cds--label,
+[data-step="2"] .cds--label,
+.step-container[data-step="2"] .cds--label,
+.scheduling-step[data-step="2"] .cds--label {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+}
+
+// Override any Carbon Design System styles for break time
+.cds--form-item[data-step="2"] .cds--label,
+.cds--fieldset[data-step="2"] .cds--label,
+.cds--form[data-step="2"] .cds--label {
+  color: var(--text-primary) !important;
+}
+
+// Direct element targeting for all labels
+.cds--label,
+label {
+  color: var(--text-primary) !important;
+}
+
+// Step 3 specific styles
+.step-3,
+[data-step="3"],
+.step-container[data-step="3"],
+.scheduling-step[data-step="3"] {
+  h2, h3, h4, p, span, div {
+    color: var(--text-primary) !important;
+  }
+  
+  .step-title,
+  .step-heading,
+  .step-description,
+  .cds--label,
+  .cds--form__helper-text,
+  .cds--form-item,
+  .cds--fieldset,
+  .cds--form {
+    color: var(--text-primary) !important;
+  }
+}
+
+// Override any Carbon Design System styles for step 3
+.cds--form-item[data-step="3"],
+.cds--fieldset[data-step="3"],
+.cds--form[data-step="3"] {
+  .cds--label,
+  .cds--form__helper-text,
+  .cds--text-input,
+  .cds--select-input,
+  .cds--date-picker__input,
+  .cds--time-picker__input,
+  .cds--select__item,
+  .cds--select__arrow {
+    color: var(--text-primary) !important;
+    fill: var(--text-primary) !important;
+  }
+}
+
+// Direct element targeting for step 3
+.step-3 h2,
+[data-step="3"] h2,
+.step-container[data-step="3"] h2,
+.scheduling-step[data-step="3"] h2,
+.step-3 .cds--label,
+[data-step="3"] .cds--label,
+.step-container[data-step="3"] .cds--label,
+.scheduling-step[data-step="3"] .cds--label,
+.step-3 .cds--form__helper-text,
+[data-step="3"] .cds--form__helper-text,
+.step-container[data-step="3"] .cds--form__helper-text,
+.scheduling-step[data-step="3"] .cds--form__helper-text {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+}
+
+// Additional Carbon Design System overrides for step 3
+.cds--form-item[data-step="3"] .cds--select,
+.cds--fieldset[data-step="3"] .cds--select,
+.cds--form[data-step="3"] .cds--select {
+  background-color: var(--card-bg) !important;
+  
+  .cds--select-input {
+    color: var(--text-primary) !important;
+  }
+  
+  .cds--select__arrow {
+    fill: var(--text-primary) !important;
+  }
+  
+  .cds--select__item {
+    color: var(--text-primary) !important;
+    background-color: var(--card-bg) !important;
+    
+    &:hover {
+      background-color: var(--hover-bg) !important;
+    }
+  }
+}
+
+// Time slot generated text styles
+.time-slot-generated,
+.time-slot-text,
+.time-slot-info,
+.cds--form-item[data-step="3"] .time-slot,
+.cds--fieldset[data-step="3"] .time-slot,
+.cds--form[data-step="3"] .time-slot,
+.step-3 .time-slot,
+[data-step="3"] .time-slot,
+.step-container[data-step="3"] .time-slot,
+.scheduling-step[data-step="3"] .time-slot {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+}
+
+// Additional Carbon Design System overrides for time slots
+.cds--form-item[data-step="3"] .cds--select,
+.cds--fieldset[data-step="3"] .cds--select,
+.cds--form[data-step="3"] .cds--select,
+.cds--form-item[data-step="3"] .cds--text-input,
+.cds--fieldset[data-step="3"] .cds--text-input,
+.cds--form[data-step="3"] .cds--text-input {
+  background-color: var(--card-bg) !important;
+  
+  .cds--select-input,
+  .cds--text-input {
+    color: var(--text-primary) !important;
+  }
+  
+  .cds--select__arrow {
+    fill: var(--text-primary) !important;
+  }
+  
+  .cds--select__item {
+    color: var(--text-primary) !important;
+    background-color: var(--card-bg) !important;
+    
+    &:hover {
+      background-color: var(--hover-bg) !important;
+    }
+  }
+}
+

@@ -1,0 +1,10 @@
+@use '@carbon/react/scss/spacing' as *;
+
+.info-page__table {
+  margin: 0;
+  padding: 0;
+}
+
+.edit-button {
+  margin-top: $spacing-05;
+}

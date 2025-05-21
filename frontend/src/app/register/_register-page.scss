@@ -1,0 +1,114 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/react/scss/breakpoint' as *;
+@use '@carbon/react/scss/theme' as *;
+@use '@carbon/react/scss/colors' as *;
+
+@use './overrides' as registerOverrides;
+
+html {
+  background-color: $layer-01;
+}
+
+.register-page {
+  margin: $spacing-08 0;
+  column-gap: $spacing-07;
+}
+
+.register-page__lc {
+  width: 100%;
+  height: auto;
+}
+
+.register-page__heading {
+  @include type-style('productive-heading-05');
+  padding: $spacing-07 0;
+  border-bottom: 1px solid $border-subtle-02;
+}
+
+.lc__inner-wrapper {
+  max-width: 100%;
+}
+
+.lc__form-wrapper {
+  padding-bottom: $spacing-07;
+  border-bottom: 1px solid $border-subtle-02;
+}
+
+.form-input-margin {
+  width: 100%;
+  max-width: 100%;
+  margin-top: $spacing-07;
+}
+
+.pw_input {
+  position: relative;
+  display: flex;
+}
+
+.pw_label-with-tooltip {
+  margin-top: $spacing-07;
+  margin-bottom: $spacing-03;
+}
+
+.pw_input button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.register-page__heading {
+  @include type-style('productive-heading-05');
+  padding: $spacing-07 0;
+  border-bottom: 1px solid $border-subtle-02;
+}
+
+.register-page__heading p {
+  padding-top: $spacing-03;
+  @include type-style('label-02');
+}
+
+.register-page__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: $spacing-06;
+}
+
+.register-page__rc {
+  width: 600px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-page__rc img {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 1057px) {
+  .register-page__rc {
+    display: none;
+  }
+
+  .register-page__lc {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 672px) {
+  .lc__form-wrapper {
+    padding: $spacing-03;
+  }
+}
+
+@media (max-width: 320px) {
+  .lc__heading {
+    font-size: rem(24px);
+  }
+}

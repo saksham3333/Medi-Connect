@@ -1,0 +1,53 @@
+@use '@carbon/react/scss/colors' as *;
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/theme' as *;
+@use '@carbon/react/scss/type' as *;
+
+@mixin appointment-page-background {
+  background: var(--gradient-primary);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    z-index: 1;
+  }
+}
+
+@mixin card-hover {
+  transition: var(--transition-normal);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@mixin button-hover {
+  transition: var(--transition-normal);
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+@mixin table-row-hover {
+  transition: var(--transition-normal);
+  
+  &:hover {
+    background-color: rgba(66, 153, 225, 0.05);
+  }
+}
+
+@mixin input-focus {
+  &:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+  }
+} 

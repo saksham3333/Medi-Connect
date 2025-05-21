@@ -1,0 +1,263 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/react/scss/breakpoint' as *;
+@use '@carbon/react/scss/theme' as *;
+@use '@carbon/react/scss/colors' as *;
+
+@use './overrides' as loginOverrides;
+
+html {
+  background-color: $layer-01;
+}
+
+.pw_input .pw-toggle-btn {
+  position: absolute;
+  right: 0;
+  top: 74%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.login-page {
+  min-height: 100vh;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-05;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  padding: $spacing-07;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: $spacing-07;
+
+  h1 {
+    font-size: 2rem;
+    color: #000000;
+    margin-bottom: $spacing-03;
+    font-weight: 600;
+  }
+
+  p {
+    color: #333333;
+    font-size: 1rem;
+  }
+}
+
+.login-form {
+  .cds--form-item {
+    margin-bottom: $spacing-05;
+  }
+
+  .cds--label {
+    color: #000000;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: $spacing-02;
+  }
+
+  .cds--text-input,
+  .cds--password-input {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    height: 48px;
+    font-size: 1rem;
+    color: #000000 !important;
+    padding: 0 $spacing-04;
+    width: 100%;
+    transition: all 0.2s ease;
+
+    &:focus {
+      border-color: #1e88e5;
+      box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.2);
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #666666;
+    }
+
+    input {
+      color: #000000 !important;
+      background-color: #ffffff;
+    }
+  }
+
+  .cds--text-input__field-wrapper,
+  .cds--password-input__field-wrapper {
+    background-color: #ffffff;
+  }
+
+  .cds--text-input__field,
+  .cds--password-input__field {
+    color: #000000 !important;
+    background-color: #ffffff;
+  }
+
+  .cds--btn {
+    width: 100%;
+    height: 48px;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: $spacing-05;
+    background: #1e88e5;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #1565c0;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+    }
+  }
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: $spacing-05;
+  
+  p {
+    color: #333333;
+    font-size: 0.875rem;
+    
+    a {
+      color: #1e88e5;
+      text-decoration: none;
+      font-weight: 500;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: $spacing-02;
+  display: flex;
+  align-items: center;
+  gap: $spacing-02;
+}
+
+.login-page__left-column {
+  width: 100%;
+  height: auto;
+}
+
+.inner-wrapper {
+  max-width: 100%;
+}
+
+.form-wrapper {
+  padding-top: $spacing-05;
+  padding-bottom: $spacing-07;
+  border-bottom: 1px solid $border-subtle-02;
+}
+
+.form-wrapper .password-margin {
+  margin-top: $spacing-05;
+}
+
+.form-wrapper .continueBtn {
+  margin-top: $spacing-05;
+  width: 100%;
+  max-width: 100%;
+}
+
+.login-page__heading {
+  @include type-style('productive-heading-05');
+  padding: $spacing-07 0;
+  border-bottom: 1px solid $border-subtle-02;
+}
+
+.login-page__form {
+  padding: $spacing-07;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: $spacing-06;
+  gap: $spacing-03;
+}
+
+.login-page__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: $spacing-06;
+  gap: $spacing-03;
+}
+
+.login-page__text .account-text {
+  color: $text-helper;
+}
+
+.login-page__text button {
+  margin: $spacing-05 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.login-page__text .forgot-section {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: $spacing-02;
+  padding: $spacing-05 0;
+  border-top: 1px solid $border-subtle-02;
+}
+
+.right-column {
+  width: 600px;
+  height: auto;
+}
+
+.right-column img {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 1057px) {
+  .right-column {
+    display: none;
+  }
+
+  .left-column {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 672px) {
+  .login-container {
+    padding: $spacing-05;
+  }
+
+  .login-header {
+    h1 {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .login-page__heading {
+    font-size: rem(24px);
+  }
+}

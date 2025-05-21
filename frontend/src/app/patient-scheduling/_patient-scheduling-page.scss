@@ -1,0 +1,378 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/react/scss/breakpoint' as *;
+@use '@carbon/react/scss/theme' as *;
+@use '@carbon/react/scss/colors' as *;
+
+@use './mixins.scss' as *;
+
+// Reset and base styles
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  background: var(--background-dark);
+  color: #ffffff;
+}
+
+.scheduling-grid {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: $spacing-05;
+  background: var(--background-gradient);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-07;
+  color: #ffffff;
+}
+
+.scheduling-page__banner {
+  padding: $spacing-07;
+  background: var(--gradient-primary);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  margin-bottom: $spacing-07;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-05;
+  
+  h1 {
+    position: relative;
+    z-index: 2;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 2rem;
+  }
+  
+  .cds--breadcrumb {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    
+    .cds--breadcrumb-item {
+      margin: 0;
+      padding: 0;
+      
+      a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          color: var(--primary-light);
+          text-decoration: underline;
+        }
+      }
+      
+      .cds--breadcrumb-item--current {
+        color: #ffffff;
+        font-weight: 600;
+      }
+    }
+    
+    .cds--breadcrumb-item::after {
+      color: #ffffff;
+      opacity: 0.7;
+    }
+  }
+}
+
+.info-page__r2 {
+  padding: $spacing-07;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #ffffff;
+  
+  .cds--tabs {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    
+    .cds--tabs__nav {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border-light);
+      
+      .cds--tabs__nav-item {
+        transition: var(--transition-normal);
+        color: #ffffff;
+        
+        &:hover {
+          background: var(--hover-bg);
+        }
+        
+        &--selected {
+          background: var(--gradient-primary);
+          border-bottom: 2px solid var(--primary-light);
+          
+          .cds--tabs__nav-link {
+            color: #ffffff;
+          }
+        }
+
+        .cds--tabs__nav-link {
+          color: #ffffff;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .cds--tabs__content {
+      background: var(--card-bg);
+      color: #ffffff;
+      padding: $spacing-05;
+    }
+  }
+}
+
+.my-schedule__table {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-top: $spacing-05;
+  color: #ffffff;
+  
+  .cds--data-table-header {
+    padding: $spacing-05;
+    background: var(--gradient-primary);
+    border-bottom: 1px solid var(--border-light);
+    
+    .cds--table-header-label {
+      color: #ffffff;
+      font-weight: 600;
+    }
+  }
+  
+  .cds--table-toolbar {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-light);
+    padding: $spacing-03 $spacing-05;
+    
+    .cds--search {
+      max-width: 300px;
+      
+      .cds--search-input {
+        background: var(--card-bg);
+        border: 1px solid var(--border-light);
+        color: #ffffff;
+        transition: var(--transition-normal);
+        
+        &:focus {
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 2px var(--primary-light);
+        }
+        
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+
+      .cds--search-magnifier {
+        fill: #ffffff;
+      }
+    }
+
+    .cds--btn {
+      color: #ffffff;
+      background: var(--card-bg);
+      border-color: var(--border-light);
+
+      &:hover {
+        background: var(--hover-bg);
+      }
+    }
+  }
+  
+  .cds--table-row {
+    transition: var(--transition-normal);
+    border-bottom: 1px solid var(--border-light);
+    background: var(--card-bg);
+    
+    &:hover {
+      background-color: var(--hover-bg);
+    }
+  }
+  
+  .cds--table-cell {
+    padding: $spacing-05;
+    color: #ffffff;
+  }
+}
+
+// Status styles
+.status-cell {
+  display: inline-flex;
+  align-items: center;
+  padding: $spacing-02 $spacing-03;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #ffffff;
+  
+  &.pending-status {
+    background: var(--warning-color);
+  }
+  
+  &.booked-status {
+    background: var(--success-color);
+  }
+}
+
+// Modal styles
+.cds--modal {
+  .cds--modal-container {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #ffffff;
+  }
+  
+  .cds--modal-header {
+    background: var(--gradient-primary);
+    border-bottom: 1px solid var(--border-light);
+    padding: $spacing-05;
+    
+    .cds--modal-header__heading {
+      color: #ffffff;
+    }
+    
+    .cds--modal-close {
+      fill: #ffffff;
+      
+      &:hover {
+        background: var(--hover-bg);
+      }
+    }
+  }
+  
+  .cds--modal-content {
+    padding: $spacing-05;
+    color: #ffffff;
+    background: var(--card-bg);
+  }
+  
+  .cds--modal-footer {
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-light);
+    padding: $spacing-05;
+
+    .cds--btn {
+      color: #ffffff;
+      background: var(--card-bg);
+      border-color: var(--border-light);
+
+      &:hover {
+        background: var(--hover-bg);
+      }
+
+      &--primary {
+        background: var(--gradient-primary);
+        color: #ffffff;
+        border: none;
+
+        &:hover {
+          background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+        }
+      }
+    }
+  }
+}
+
+// Form elements
+.cds--form-item {
+  .cds--label {
+    color: #ffffff;
+  }
+
+  .cds--text-input {
+    background: var(--card-bg);
+    border-color: var(--border-light);
+    color: #ffffff;
+
+    &:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+  }
+
+  .cds--select {
+    background: var(--card-bg);
+    border-color: var(--border-light);
+    color: #ffffff;
+
+    &:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+  }
+}
+
+// Empty state styles
+.empty-state {
+  text-align: center;
+  padding: $spacing-07;
+  color: #ffffff;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  margin: $spacing-05 0;
+  border: 1px solid var(--border-light);
+
+  .empty-state__icon {
+    fill: #ffffff;
+    margin-bottom: $spacing-05;
+  }
+
+  .empty-state__text {
+    font-size: 1.1rem;
+    margin-bottom: $spacing-03;
+    color: #ffffff;
+  }
+
+  .empty-state__subtext {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+// Responsive styles
+@media (max-width: 672px) {
+  .scheduling-grid {
+    padding: $spacing-03;
+  }
+  
+  .scheduling-page__banner {
+    padding: $spacing-05;
+  }
+  
+  .info-page__r2 {
+    padding: $spacing-05;
+  }
+  
+  .my-schedule__table {
+    .cds--table-toolbar {
+      .cds--search {
+        max-width: 100%;
+      }
+    }
+  }
+}
