@@ -16,7 +16,7 @@ mongoose
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://mediconnect-f4mm.onrender.com"],
+    origin: ["http://localhost:3000", "https://medi-connect-xxsa.onrender.com"],
     credentials: true,
   })
 );
