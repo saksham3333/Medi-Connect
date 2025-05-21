@@ -16,7 +16,7 @@ mongoose
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "medi-connect-6ift.vercel.app"],
+    origin: ["http://localhost:3000", "https://medi-connect-6ift.vercel.app"],
     credentials: true,
   })
 );
